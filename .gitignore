@@ -1,0 +1,5 @@
+# Ignore all hidden files that aren't git related
+.*
+!.gitignore
+!.gitmodules
+
