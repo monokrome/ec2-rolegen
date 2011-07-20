@@ -1,3 +1,6 @@
+# Python cache files
+*.pyc
+
 # Ignore all files related to virtualenv
 bin/*
 lib/*
