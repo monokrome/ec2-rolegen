@@ -1,6 +1,9 @@
 # Python cache files
 *.pyc
 
+# IDE-specific files
+*.tmproj
+
 # Ignore all files related to virtualenv
 bin/*
 lib/*
