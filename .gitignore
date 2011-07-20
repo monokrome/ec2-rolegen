@@ -3,6 +3,13 @@ bin/*
 lib/*
 include/*
 
+# Ignore all files related to distribute/pip/etc.
+dist/*
+build/*
+mac/*
+*.egg-info
+.Python
+
 # Ignore all hidden files that aren't git related
 .*
 !.gitignore
