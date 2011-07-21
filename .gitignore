@@ -4,6 +4,9 @@
 # IDE-specific files
 *.tmproj
 
+# Ignore any roles that might exist here
+roles/*
+
 # Ignore all files related to virtualenv
 bin/*
 lib/*
