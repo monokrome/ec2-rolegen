@@ -6,11 +6,23 @@ import glob
 import os
 import gzip
 
+def check_dir(path):
+
+	if not os.path.exists(path):
+		print("Directory does not exist. Creating: {0}".format(path))
+		os.makedirs(path)
+
+	elif not os.path.isdir(path):
+		raise ValueError('{0} must be a directory.'.format(path))
+
 def project_path(identifier):
 	return os.path.abspath(os.path.join('.', identifier))
 
 dist_dir = project_path('dist')
 roles_dir = project_path('roles')
+
+check_dir(roles_dir)
+check_dir(dist_dir)
 
 global_files = []
 roles = {}
