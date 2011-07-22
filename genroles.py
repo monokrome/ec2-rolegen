@@ -30,6 +30,10 @@ roles = {}
 # Iterate through list of all absolute paths in the files directory
 for filename in glob.iglob(os.path.join(roles_dir, '*')):
 
+	# Ignore hidden files.
+	if filename[0] == '.':
+		continue
+
 	if os.path.isdir(filename):
 		roles[os.path.basename(filename)] = filename
 	else:
