@@ -6,6 +6,8 @@ import glob
 import os
 import gzip
 
+COMPRESS = False
+
 def check_dir(path):
 
 	if not os.path.exists(path):
@@ -26,6 +28,11 @@ check_dir(dist_dir)
 
 global_files = []
 roles = {}
+
+if COMPRESS:
+	open_out = gzip.open
+else:
+	open_out = open
 
 # Iterate through list of all absolute paths in the files directory
 for filename in glob.iglob(os.path.join(roles_dir, '*')):
@@ -55,7 +62,7 @@ for role in roles:
 	role_dir = roles[role]
 	role_filename = '{0}{1}'.format(role, '.gz')
 
-	role_output = gzip.open(os.path.join(dist_dir, role_filename), 'w')
+	role_output = open_out(os.path.join(dist_dir, role_filename), 'w')
 	
 	# Create a multi-part MIME file, which will be used to store
 	# all of the related files for this role.
