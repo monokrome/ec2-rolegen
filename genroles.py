@@ -17,6 +17,13 @@ def check_dir(path):
 	elif not os.path.isdir(path):
 		raise ValueError('{0} must be a directory.'.format(path))
 
+def fill_vars(template_vars, content):
+	for var in template_vars:
+		content = content.replace('$[ec2_genroles_{0}]'.format(var),
+		                          template_vars[var])
+
+	return content
+
 def project_path(identifier):
 	return os.path.abspath(os.path.join('.', identifier))
 
@@ -59,6 +66,12 @@ elif not os.path.isdir(dist_dir):
 # Generate output for each role
 for role in roles:
 
+	# Cloud init has limitations (IE, can't have two cloud-config)
+	# files in one mime file. So, adding pseudo-templating fixes this.
+	role_vars = {
+		'rolename': role
+	}
+
 	role_dir = roles[role]
 	role_filename = '{0}{1}'.format(role, '.gz')
 
@@ -70,11 +83,13 @@ for role in roles:
 
 	# Include all "global" requirements.
 	for mime_file in global_files:
-		mime_output.attach(mime_file)
+		contents = fill_vars(role_vars, str(mime_file))
+		mime_output.attach(email.mime.text.MIMEText(contents))
 
 	for filename in glob.iglob(os.path.join(role_dir, '*')):
 		current_file = open(filename)
-		current_mime = email.mime.text.MIMEText(current_file.read())
+		contents = fill_vars(role_vars, current_file.read())
+		current_mime = email.mime.text.MIMEText(contents)
 		current_file.close()
 
 		current_mime._headers = []
