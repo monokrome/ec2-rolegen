@@ -6,7 +6,7 @@ import glob
 import os
 import gzip
 
-COMPRESS = False
+COMPRESS = True
 
 def check_dir(path):
 
