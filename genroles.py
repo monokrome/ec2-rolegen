@@ -38,8 +38,10 @@ roles = {}
 
 if COMPRESS:
 	open_out = gzip.open
+	output_suffix = '.gz'
 else:
 	open_out = open
+	output_suffix = '.out'
 
 # Iterate through list of all absolute paths in the files directory
 for filename in glob.iglob(os.path.join(roles_dir, '*')):
@@ -73,7 +75,7 @@ for role in roles:
 	}
 
 	role_dir = roles[role]
-	role_filename = '{0}{1}'.format(role, '.gz')
+	role_filename = '{0}{1}'.format(role, output_suffix)
 
 	role_output = open_out(os.path.join(dist_dir, role_filename), 'w')
 	
