@@ -4,6 +4,7 @@ import email.mime.text
 import email.mime.multipart
 import glob
 import os
+import gzip
 
 def project_path(identifier):
 	return os.path.abspath(os.path.join('.', identifier))
@@ -36,9 +37,9 @@ elif not os.path.isdir(dist_dir):
 for role in roles:
 
 	role_dir = roles[role]
-	role_filename = '{0}{1}'.format(role, '.out')
+	role_filename = '{0}{1}'.format(role, '.gz')
 
-	role_output = open(os.path.join(dist_dir, role_filename), 'w')
+	role_output = gzip.open(os.path.join(dist_dir, role_filename), 'w')
 	
 	# Create a multi-part MIME file, which will be used to store
 	# all of the related files for this role.
