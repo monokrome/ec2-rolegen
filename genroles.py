@@ -6,7 +6,7 @@ import glob
 import os
 import gzip
 
-COMPRESS = True
+COMPRESS = False
 
 def check_dir(path):
 
@@ -56,7 +56,7 @@ for filename in glob.iglob(os.path.join(roles_dir, '*')):
 		current_file = open(filename, 'r')
 		data = current_file.read()
 
-		global_files.append(email.mime.text.MIMEText(data))
+		global_files.append(data)
 
 # Create a directory to store our file output in
 if not os.path.exists(dist_dir):
@@ -84,8 +84,8 @@ for role in roles:
 	mime_output = email.mime.multipart.MIMEMultipart()
 
 	# Include all "global" requirements.
-	for mime_file in global_files:
-		contents = fill_vars(role_vars, str(mime_file))
+	for file_data in global_files:
+		contents = fill_vars(role_vars, file_data)
 		mime_output.attach(email.mime.text.MIMEText(contents))
 
 	for filename in glob.iglob(os.path.join(role_dir, '*')):
