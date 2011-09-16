@@ -19,7 +19,7 @@ def check_dir(path):
 
 def fill_vars(template_vars, content):
 	for var in template_vars:
-		content = content.replace('$[ec2_genroles_{0}]'.format(var),
+		content = content.replace('$[ec2_rolegen_{0}]'.format(var),
 		                          template_vars[var])
 
 	return content
