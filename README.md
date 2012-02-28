@@ -40,10 +40,10 @@ your current working directory. If this directory is not found, then it will be 
 will then search this directory for any files or directories.
 
 If the script finds a directory, then it creates a new role which is given the same name as
-the directory which was found. If it finds a file, then that file is added to a list of files
-that should be used for every role. These are called *global files*.
+that directory. If it finds a file, then that file is added to a list of files
+that should be used for every role. These are *global files*.
 
-For reach directory, the script collects all global files and all files in that roles directory
+For each directory, the script collects all global files and all files in that roles directory
 and puts them into a gzipped (compression level 9) mime file in the dist directory. These files
 can be used as user data for your instance in order to bootstrap it.
 
